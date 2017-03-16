@@ -1,4 +1,4 @@
-{
+
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -184,6 +184,29 @@
         }
       },
       "resources": [
+     {
+          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "name": "[concat(parameters('vmName'), '/UpdateWAAgent')]",
+          "apiVersion": "[parameters('apiVersion')]",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+          ],
+		  "properties": {
+		  "publisher": "Microsoft.OSTCExtensions",
+		  "type": "CustomScriptForLinux",
+		"typeHandlerVersion": "1.5",
+		"autoUpgradeMinorVersion": true,
+		"settings": {
+		"fileUris": [
+			"https://raw.githubusercontent.com/devchop/azure-quickstart-templates/master/zypper.sh"
+      ],
+      "commandToExecute": "./zypper.sh"
+    },"protectedSettings": {
+      "ClusterName": "[concat(parameters('clusterName'), '.', parameters('privateDomainName'))]"
+    }
+  }
+},
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "name": "[concat(parameters('vmName'), '/installHPCNodeAgent')]",
@@ -195,7 +218,7 @@
           "properties": {
             "publisher": "Microsoft.HpcPack",
             "type": "LinuxNodeAgent",
-            "typeHandlerVersion": "1.7.11.2",
+            "typeHandlerVersion": "1.7",
             "protectedSettings": {
               "ClusterName": "[concat(parameters('clusterName'), '.', parameters('privateDomainName'))]"
             }
