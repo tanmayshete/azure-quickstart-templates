@@ -88,7 +88,7 @@
         "RHEL_7.2",
         "SLES_12",
         "SLES_12_Premium",
-        "SLES_12_HPC",
+        "SLES_12_HPC_SP1",
         "SLES_12_HPC_Premium",
         "Ubuntu_14.04",
         "Ubuntu_16.04"
@@ -270,10 +270,10 @@
         "offer": "SLES-Priority",
         "sku": "12"
       },
-      "SLES_12_HPC": {
+      "SLES_12_HPC_SP1": {
         "publisher": "SUSE",
         "offer": "SLES-HPC",
-        "sku": "12"
+        "sku": "12-SP1"
       },
       "SLES_12_HPC_Premium": {
         "publisher": "SUSE",
